@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+.layout-2 {
+  height: screen;
+}
+
+.navbar {
+  background-color: aliceblue;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav {
+  display: flex;
+  background: transparent;
+  max-width: 450px;
+}
+
+h1,
+p {
+  padding-top: 0;
+  line-height: 1rem;
+  padding-bottom: 0;
+}
+
+main {
+  height: 100vh;
+  background-color: rgb(238, 239, 239);
+  padding: 0.3rem;
+}
+h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

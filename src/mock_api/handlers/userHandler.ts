@@ -1,0 +1,83 @@
+import { http, HttpResponse } from "msw";
+import { type LoginUser } from "../../types/user.types";
+import { users } from "../sample_data/users.data";
+
+export const userHandlers = [
+  http.post("/api/login", async ({ request }) => {
+    const body = (await request.json()) as LoginUser;
+    console.log("login handler");
+    if (!body || !body.email || !body.password) {
+      return HttpResponse.json(
+        {
+          success: false,
+          message: "Email and Password are missing",
+        },
+        { status: 403 }
+      );
+    }
+
+    const user = users.find(
+      (ele) => ele.email === body.email && ele.password === body.password
+    );
+    if (!user) {
+      return HttpResponse.json(
+        {
+          success: false,
+          message: "Email or Password is invalid",
+        },
+        { status: 403 }
+      );
+    }
+
+    return HttpResponse.json(
+      { success: true, user: { ...user, password: "" } },
+      {
+        headers: {
+          "Set-Cookie": `sessionId=${user.sessionId}; Path=/; HttpOnly`,
+        },
+        status: 200,
+      }
+    );
+  }),
+
+  http.get("/api/logout", async ({ cookies }) => {
+    //check if user is logged in
+    console.log("Logout Handler");
+    if (cookies.sessionId) {
+      return HttpResponse.json(
+        { success: true },
+        { headers: { "Set-Cookie": `sessionId="";` }, status: 200 }
+      );
+    }
+    return HttpResponse.json(
+      {
+        success: false,
+        message: "You are not loggedin",
+      },
+      { status: 403 }
+    );
+  }),
+  http.post("/api/auth", async ({ cookies }) => {
+    console.log("Auth handler");
+    try {
+      const sessionId = cookies.sessionId;
+      console.log(sessionId);
+      if (!sessionId) {
+        return HttpResponse.json({ success: false }, { status: 400 });
+      }
+
+      const user = users.find((ele) => ele.sessionId === sessionId);
+
+      return HttpResponse.json({ success: true, user }, { status: 200 });
+    } catch (error) {
+      console.log(error);
+      return HttpResponse.json(
+        {
+          success: false,
+          message: (error as Error).message,
+        },
+        { status: 500 }
+      );
+    }
+  }),
+];
