@@ -5,6 +5,8 @@ import NotFound from "../pages/NotFound";
 // import { store } from "../app/store";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
+import ExposedRoute from "../components/ExposedRoute";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 // custom guard function
 
@@ -18,11 +20,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <Login />,
+        element: (
+          <ExposedRoute>
+            <Login />
+          </ExposedRoute>
+        ),
       },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "*",

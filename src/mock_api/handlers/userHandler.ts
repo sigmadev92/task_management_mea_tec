@@ -42,13 +42,19 @@ export const userHandlers = [
 
   http.get("/api/logout", async ({ cookies }) => {
     //check if user is logged in
-    console.log("Logout Handler");
-    if (cookies.sessionId) {
+    console.log("Logout Handler", cookies.sessionId);
+    if (cookies.sessionId.length > 0) {
       return HttpResponse.json(
         { success: true },
-        { headers: { "Set-Cookie": `sessionId="";` }, status: 200 }
+        {
+          headers: {
+            "Set-Cookie": "sessionId=; Path=/; Max-Age=0; HttpOnly",
+          },
+          status: 200,
+        }
       );
     }
+    console.log("logout failed");
     return HttpResponse.json(
       {
         success: false,
@@ -58,7 +64,7 @@ export const userHandlers = [
     );
   }),
   http.post("/api/auth", async ({ cookies }) => {
-    console.log("Auth handler");
+    console.log("Auth handler", cookies.sessionId);
     try {
       const sessionId = cookies.sessionId;
       console.log(sessionId);
@@ -67,6 +73,9 @@ export const userHandlers = [
       }
 
       const user = users.find((ele) => ele.sessionId === sessionId);
+      if (!user) {
+        return HttpResponse.json({ success: false }, { status: 400 });
+      }
 
       return HttpResponse.json({ success: true, user }, { status: 200 });
     } catch (error) {

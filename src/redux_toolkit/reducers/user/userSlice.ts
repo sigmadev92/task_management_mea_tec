@@ -1,9 +1,6 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  type PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { type UserState } from "../../../types/user.types";
+
 const initialState: UserState = {
   loggedIn: false,
   user: null,
@@ -30,8 +27,8 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserState>) => {
-      state.user = action.payload.user;
+    setUser: (state, action) => {
+      state.user = action.payload;
       state.loggedIn = true;
     },
     removeUser: (state) => {
@@ -48,6 +45,7 @@ const userSlice = createSlice({
         state.user = null;
       })
       .addCase(fetchLoginStatus.fulfilled, (state, action) => {
+        console.log(action.payload);
         if (action.payload.success) {
           state.loggedIn = true;
           state.user = action.payload.user;

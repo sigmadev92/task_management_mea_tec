@@ -1,60 +1,43 @@
 // Render Prop
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { message } from "antd";
-import { userActions } from "../redux_toolkit/reducers/user/userSlice";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../redux_toolkit/store/hooks";
+import { useAppDispatch } from "../redux_toolkit/store/hooks";
+import { taskThunk } from "../redux_toolkit/reducers/task/tasksSlice";
+import type { NewTask } from "../types/task.types";
 // import "antd/dist/reset.css";
-const NewTask = () => {
+const NewTaskComp = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { user } = useAppSelector((state) => state.user);
   return (
-    <div className="w-[50%] flex flex-col items-center">
+    <div className="w-[50%] flex flex-col items-center p-3 outline-1">
       <h3>Add a new Task</h3>
       <Formik
-        initialValues={{ title: "" }}
+        initialValues={{ title: "", description: "" }}
         validate={(values) => {
-          const errors: { title?: string } = {};
+          const errors: { title?: string; desciption?: string } = {};
 
           if (!values.title) {
             errors.title = "Title is required";
           } else if (values.title.length < 3) {
             errors.title = "Please keep title atleast 3 characters long";
           }
+          if (!values.description) {
+            errors.desciption = "Description is required";
+          } else if (values.description.length < 10) {
+            errors.desciption =
+              "Please keep Description atleast 3 characters long";
+          }
 
           return errors;
         }}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          const task = {
+          const task: NewTask = {
             title: values.title,
-            userId: user?.id,
+            description: values.description,
           };
           try {
-            const response = await fetch("/api/tasks", {
-              method: "POST",
-              body: JSON.stringify(task),
-            });
-            const data = await response.json();
-            if (data.success) {
-              message.success(
-                {
-                  content: "User LoggedIn successfully",
-                },
-                3
-              );
-
-              dispatch(userActions.setUser(data.user));
-              navigate("/dashboard");
-            } else {
-              message.error(
-                {
-                  content: data.message,
-                },
-                3
-              );
-            }
+            dispatch(taskThunk.addNewTask(task));
+            resetForm();
           } catch (error: unknown) {
             message.error({ content: (error as Error).message });
           } finally {
@@ -63,12 +46,12 @@ const NewTask = () => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form className="p-3 w-full items-center justify-center flex flex-col gap-[1rem]">
+          <Form className="p-3 items-center justify-center flex flex-col gap-[1rem] outline-1">
             <Field
               type="text"
               name="title"
               className="border-b-[1px] p-1 focus:outline-0"
-              placeholder="Enter a title"
+              placeholder="Enter title"
             />
             <ErrorMessage
               name="title"
@@ -76,10 +59,11 @@ const NewTask = () => {
               className="text-sm text-red-400"
             />
             <Field
-              type="textarea"
+              as="textarea"
+              rows="5"
               name="description"
-              className="border-b-[1px] p-1 focus:outline-0"
-              placeholder="Enter a title"
+              className="border-[1px] p-1 focus:outline-0 resize-none"
+              placeholder="Enter Description"
             />
             <ErrorMessage
               name="description"
@@ -101,4 +85,4 @@ const NewTask = () => {
   );
 };
 
-export default NewTask;
+export default NewTaskComp;

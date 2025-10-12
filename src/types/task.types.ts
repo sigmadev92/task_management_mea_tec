@@ -12,11 +12,11 @@ export type Task = {
   status: TaskStatus;
 };
 export type NewTask = {
-  userId: string;
   title: string;
   description: string;
 };
 export type EditTask = {
+  id: string;
   title: string;
   description: string;
   status: TaskStatus;

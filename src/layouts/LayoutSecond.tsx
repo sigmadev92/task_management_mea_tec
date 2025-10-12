@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, message } from "antd";
 import type { MenuProps } from "antd";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { userActions } from "../redux_toolkit/reducers/user/userSlice";
 import { useAppSelector, useAppDispatch } from "../redux_toolkit/store/hooks";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const user = useAppSelector((state) => state.user);
   const [items, setItems] = useState<MenuProps["items"]>([]);
 
@@ -35,7 +36,9 @@ const App: React.FC = () => {
   };
   const handleLogout = async () => {
     await fetch("/api/logout", { credentials: "include" });
+
     dispatch(userActions.removeUser());
+    message.success("logged Out successfullly");
     navigate("/login");
   };
 
@@ -61,13 +64,12 @@ const App: React.FC = () => {
             <p className="font-bold text-[0.9rem]">by MEA Tec</p>
           </div>
         </div>
-
+        {/* <button onClick={() => console.log(user)}>click</button> */}
         <Menu
-          className="nav"
-          theme="light"
+          theme="dark"
           onClick={handleNav}
           mode="horizontal"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={[location.pathname]}
           items={items}
         />
       </Header>

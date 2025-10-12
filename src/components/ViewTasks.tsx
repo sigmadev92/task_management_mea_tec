@@ -1,26 +1,29 @@
+import type React from "react";
 import { useAppSelector } from "../redux_toolkit/store/hooks";
+import TaskItem from "./TaskItem";
+import type { Task } from "../types/task.types";
 
-function ViewTasks() {
-  const tasks = useAppSelector((state) => state.tasks);
+type ChildProp = {
+  setTask: (task: Task | null) => void;
+  deleteTaskBtn: (taskId: string) => void;
+};
+const ViewTasks: React.FC<ChildProp> = ({ deleteTaskBtn, setTask }) => {
+  const { tasks } = useAppSelector((state) => state.tasks);
   return (
-    <div className="w-[45%]">
+    <div className="w-[45%] outline-1 p-1">
       <h3>View Your Tasks Here</h3>
-      <hr />
+      <hr className="mb-2" />
       <div>
-        {tasks.list.length > 0 ? (
+        {tasks.length > 0 ? (
           <ul>
-            {tasks.list.map((task) => {
+            {tasks.map((task) => {
               return (
-                <li key={task.id} className="outline-1 rounded-[0.4rem] mb-2 ">
-                  <p>{task.title}</p>
-                  <p className="text-[0.7rem] text-green-500">
-                    {task.completed ? (
-                      <span>Completed</span>
-                    ) : (
-                      <span className="text-red-500">Not Completed</span>
-                    )}
-                  </p>
-                </li>
+                <TaskItem
+                  key={task.id}
+                  deleteTaskBtn={deleteTaskBtn}
+                  task={task}
+                  setTask={setTask}
+                />
               );
             })}
           </ul>
@@ -30,6 +33,6 @@ function ViewTasks() {
       </div>
     </div>
   );
-}
+};
 
 export default ViewTasks;

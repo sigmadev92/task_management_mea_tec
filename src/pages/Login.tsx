@@ -4,7 +4,6 @@ import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { userActions } from "../redux_toolkit/reducers/user/userSlice";
 import { useNavigate } from "react-router-dom";
-// import "antd/dist/reset.css";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ const Login = () => {
 
             return errors;
           }}
-          onSubmit={async (values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
             try {
               const response = await fetch("/api/login", {
@@ -46,6 +45,7 @@ const Login = () => {
               });
               const data = await response.json();
               if (data.success) {
+                resetForm();
                 console.log(data);
                 message.success(
                   {
@@ -57,6 +57,7 @@ const Login = () => {
                 dispatch(userActions.setUser(data.user));
                 navigate("/dashboard");
               } else {
+                console.log(data.message);
                 message.error(
                   {
                     content: data.message,
