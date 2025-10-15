@@ -6,11 +6,11 @@ export type UserState = {
 export type User = {
   id: string;
   fullName: string;
-  email: string;
+  username: string;
   password: string;
   sessionId: string;
 };
 export type LoginUser = {
-  email: string;
+  username: string;
   password: string;
 };

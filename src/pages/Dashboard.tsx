@@ -17,7 +17,7 @@ const Dashboard = () => {
   return (
     <main className="p-3 ">
       <h2>Dashboard</h2>
-      <section className="md:flex justify-between p-3">
+      <section className="flex flex-col md:flex-row gap-3 justify-between p-3">
         <ViewTasks deleteTaskBtn={deleteTaskBtn} setTask={setTask} />
         {task ? (
           <EditTaskComp task={task} setTask={setTask} />

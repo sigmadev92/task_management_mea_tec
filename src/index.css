@@ -1,11 +1,18 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #123456;
+  --color-primary-dark: #0d0dff;
+}
+
 .layout-2 {
   height: screen;
+  background-color: primary;
 }
 
 .navbar {
-  background-color: aliceblue;
   display: flex;
   justify-content: space-between;
 }
@@ -24,7 +31,6 @@ p {
 
 main {
   height: 100vh;
-  background-color: rgb(238, 239, 239);
   padding: 0.3rem;
 }
 h1 {

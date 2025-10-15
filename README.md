@@ -6,21 +6,31 @@ A task management application (mocked API) built with Vite, React, TypeScript, T
 
 ### Table of Contents
 
-1.  Project Overview
-2.  Key features
-3.  Tech Stack
-4.  Prerequisites
-5.  Getting Started
-6.  Environment Varibales
-7.  Project Structure
-8.  Type Definition
-9.  Routing and Navigation
+0. Login Credentials
+1. Project Overview
+2. Key features
+3. Tech Stack
+4. Prerequisites
+5. Getting Started
+6. Environment Varibales
+7. Project Structure
+8. Type Definition
+9. Routing and Navigation
 10. Formik
 11. MSW
 12. Layout and Styling
 13. Troubleshoting
 14. Deployment
 15. Bonus (Optional Enhancements)
+
+### Login Credentials
+
+```
+Website URL : https://task-management-mea-tec.vercel.app
+username : test
+password : test123
+
+```
 
 ### Project Overview
 
@@ -351,10 +361,11 @@ useEffect(() => {
 
 ### Deployment
 
-- Deployed on Netlify
+- Deployed Links
 
 ```
-url :
+github url : https://github.com/sigmadev92/task_management_mea_tec
+Vercel url : https://task-management-mea-tec.vercel.app
 ```
 
 ### Bonus (Optional Enhancements)

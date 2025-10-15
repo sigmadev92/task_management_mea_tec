@@ -4,6 +4,7 @@ import type { MenuProps } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { userActions } from "../redux_toolkit/reducers/user/userSlice";
 import { useAppSelector, useAppDispatch } from "../redux_toolkit/store/hooks";
+// import DarkModeToggle from "../components/DarkModeToggle";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -11,7 +12,7 @@ const App: React.FC = () => {
   const user = useAppSelector((state) => state.user);
   const [items, setItems] = useState<MenuProps["items"]>([]);
 
-  const { Header, Content } = Layout;
+  const { Content } = Layout;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const App: React.FC = () => {
 
   return (
     <Layout className="layout-2">
-      <Header className="navbar">
+      <nav className="flex justify-between items-center p-4">
         <div id="info" className="flex gap-1 items-center">
           <div
             id="logo"
@@ -65,15 +66,19 @@ const App: React.FC = () => {
           </div>
         </div>
         {/* <button onClick={() => console.log(user)}>click</button> */}
-        <Menu
-          theme="dark"
-          onClick={handleNav}
-          mode="horizontal"
-          defaultSelectedKeys={[location.pathname]}
-          items={items}
-        />
-      </Header>
-      <Content className="content">
+        <div className="flex gap-2 items-center">
+          {/* <DarkModeToggle /> */}
+          <Menu
+            theme="dark"
+            onClick={handleNav}
+            mode="horizontal"
+            defaultSelectedKeys={[location.pathname]}
+            items={items}
+          />
+        </div>
+      </nav>
+
+      <Content className="content dark">
         <Outlet />
       </Content>
     </Layout>

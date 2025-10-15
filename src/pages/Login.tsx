@@ -10,28 +10,24 @@ const Login = () => {
 
   return (
     <main className="h-[100vh]  box-border flex justify-center items-center overflow-hidden">
-      <div className="flex flex-col gap-4 items-center w-[95%] max-w-[450px] mt-[-3rem]">
+      <div className="flex flex-col gap-4 items-center w-[95%] max-w-[450px] mt-[-3rem] dark">
         <h2 className="font-bold text-4xl">Login</h2>
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ username: "", password: "" }}
           validate={(values) => {
-            const errors: { email?: string; password?: string } = {};
+            const errors: { username?: string; password?: string } = {};
 
-            if (!values.email) {
-              errors.email = "Email is required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
+            if (!values.username) {
+              errors.username = "username is required";
             }
 
             if (!values.password) {
               errors.password = "Password is required";
             } else if (
-              values.password.length < 8 ||
+              values.password.length < 6 ||
               values.password.length > 12
             ) {
-              errors.password = "Password must be 8–12 characters long";
+              errors.password = "Password must be 6–12 characters long";
             }
 
             return errors;
@@ -76,13 +72,13 @@ const Login = () => {
             <Form className="p-3 w-full items-center justify-center flex flex-col gap-[1rem] shadow-xl">
               <div className="flex flex-col gap-[0.5rem] w-[70%]">
                 <Field
-                  type="email"
-                  name="email"
+                  type="text"
+                  name="username"
                   className="border-b-[1px] p-1 focus:outline-0"
-                  placeholder="Enter you Email"
+                  placeholder="Enter you username"
                 />
                 <ErrorMessage
-                  name="email"
+                  name="username"
                   component="div"
                   className="text-sm text-red-400"
                 />

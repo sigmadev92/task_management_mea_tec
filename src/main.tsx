@@ -6,6 +6,13 @@ import "@ant-design/v5-patch-for-react-19";
 import "./index.css";
 import App from "./App";
 
+// in main.tsx before ReactDOM.createRoot
+if (localStorage.theme === "dark") {
+  document.documentElement.classList.add("dark");
+} else {
+  document.documentElement.classList.remove("dark");
+}
+
 if (import.meta.env.VITE_NODE_ENV === "DEV") {
   async function mod() {
     const { worker } = await import("./mock_api/browser");

@@ -1,8 +1,7 @@
 import React from "react";
-import { Flex, Spin, Switch } from "antd";
+import { Flex, Spin } from "antd";
 
 const App: React.FC = () => {
-  const [auto, setAuto] = React.useState(false);
   const [percent, setPercent] = React.useState(-50);
   const timerRef = React.useRef<ReturnType<typeof setTimeout>>(null);
 
@@ -16,23 +15,14 @@ const App: React.FC = () => {
     return () => clearTimeout(timerRef.current!);
   }, [percent]);
 
-  const mergedPercent = auto ? "auto" : percent;
+  const mergedPercent = percent;
 
   return (
-    <Flex align="center" gap="middle">
-      <Switch
-        checkedChildren="Auto"
-        unCheckedChildren="Auto"
-        checked={auto}
-        onChange={() => {
-          setAuto(!auto);
-          setPercent(-50);
-        }}
-      />
-      <Spin percent={mergedPercent} size="small" />
-      <Spin percent={mergedPercent} />
-      <Spin percent={mergedPercent} size="large" />
-    </Flex>
+    <div className="w-full h-[100vh] absolute top-0 left-0 flex justify-center items-center">
+      <Flex align="center" gap="middle">
+        <Spin percent={mergedPercent} size="large" />
+      </Flex>
+    </div>
   );
 };
 

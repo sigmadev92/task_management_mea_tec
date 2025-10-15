@@ -6,7 +6,7 @@ export const userHandlers = [
   http.post("/api/login", async ({ request }) => {
     const body = (await request.json()) as LoginUser;
     console.log("login handler");
-    if (!body || !body.email || !body.password) {
+    if (!body || !body.username || !body.password) {
       return HttpResponse.json(
         {
           success: false,
@@ -17,7 +17,7 @@ export const userHandlers = [
     }
 
     const user = users.find(
-      (ele) => ele.email === body.email && ele.password === body.password
+      (ele) => ele.username === body.username && ele.password === body.password
     );
     if (!user) {
       return HttpResponse.json(

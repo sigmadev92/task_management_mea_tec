@@ -8,6 +8,7 @@ import Loader from "./components/Loader";
 const App = () => {
   const [loader, setLoader] = useState(false);
   const { user } = useAppSelector((state) => state.user);
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     setLoader(true);
@@ -21,7 +22,7 @@ const App = () => {
     if (user) dispatch(taskThunk.fetchAllTasks());
   }, [user]);
   return (
-    <div>
+    <div className="relative">
       {loader && <Loader />}
       <RouterProvider router={router} />;
     </div>
