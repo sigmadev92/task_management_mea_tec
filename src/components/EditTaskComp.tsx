@@ -14,7 +14,7 @@ const EditTaskComp: React.FC<ChildProp> = ({ task, setTask }) => {
   const { title, status, id, description } = task;
   const dispatch = useAppDispatch();
   return (
-    <div className="w-[45%] flex flex-col items-center p-3 outline-1">
+    <div className="w-full md:w-[45%] flex flex-col items-center p-3 outline-1 dark:text-white">
       <h3>Edit Task</h3>
       <span>Task Id : {id}</span>
       <Formik

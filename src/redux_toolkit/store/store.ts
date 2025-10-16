@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "../reducers/user/userSlice";
 import { tasksReducer } from "../reducers/task/tasksSlice";
+import { themeReducer } from "../reducers/theme/themeSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     tasks: tasksReducer,
+    theme: themeReducer,
   },
 });
 

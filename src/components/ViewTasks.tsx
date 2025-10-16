@@ -10,7 +10,7 @@ type ChildProp = {
 const ViewTasks: React.FC<ChildProp> = ({ deleteTaskBtn, setTask }) => {
   const { tasks } = useAppSelector((state) => state.tasks);
   return (
-    <div className="w-full md:w-[45%] outline-1 p-1">
+    <div className="w-full md:w-[45%] outline-1 p-1 dark:text-white">
       <h3>View Your Tasks Here</h3>
       <hr className="mb-2" />
       <div>

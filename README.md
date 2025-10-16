@@ -29,7 +29,6 @@ A task management application (mocked API) built with Vite, React, TypeScript, T
 Website URL : https://task-management-mea-tec.vercel.app
 username : test
 password : test123
-
 ```
 
 ### Project Overview
@@ -50,6 +49,8 @@ The project is a frontend specific (simulation of a task management application)
 - Form handling with Formik
 
 - Responsive UI using Tailwind + AntD components
+
+- Dark Mode Toggle Button
 
 - Mock server (MSW) for API isolation
 

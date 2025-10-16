@@ -1,17 +1,17 @@
 // Render Prop
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { message } from "antd";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../redux_toolkit/store/hooks";
 import { userActions } from "../redux_toolkit/reducers/user/userSlice";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   return (
-    <main className="h-[100vh]  box-border flex justify-center items-center overflow-hidden">
-      <div className="flex flex-col gap-4 items-center w-[95%] max-w-[450px] mt-[-3rem] dark">
-        <h2 className="font-bold text-4xl">Login</h2>
+    <main className=" box-border flex justify-center items-center overflow-hidden dark:bg-black">
+      <div className="flex flex-col gap-4 items-center w-[95%] max-w-[450px] mt-[-3rem]">
+        <h2 className="font-bold text-4xl dark:text-blue-500">Login</h2>
         <Formik
           initialValues={{ username: "", password: "" }}
           validate={(values) => {
@@ -27,7 +27,7 @@ const Login = () => {
               values.password.length < 6 ||
               values.password.length > 12
             ) {
-              errors.password = "Password must be 6–12 characters long";
+              errors.password = "Password must be 6 – 12 characters long";
             }
 
             return errors;
@@ -69,12 +69,12 @@ const Login = () => {
           }}
         >
           {({ isSubmitting }) => (
-            <Form className="p-3 w-full items-center justify-center flex flex-col gap-[1rem] shadow-xl">
+            <Form className="p-3 w-full items-center justify-center flex flex-col gap-[1rem] shadow-md shadow-black dark:shadow-amber-200">
               <div className="flex flex-col gap-[0.5rem] w-[70%]">
                 <Field
                   type="text"
                   name="username"
-                  className="border-b-[1px] p-1 focus:outline-0"
+                  className="border-b-[1px] dark:border-b-white p-1 focus:outline-0 placeholder:text-[0.8rem] dark:placeholder:text-[#67ffdd] dark:text-white"
                   placeholder="Enter you username"
                 />
                 <ErrorMessage
@@ -87,7 +87,7 @@ const Login = () => {
                 <Field
                   type="password"
                   name="password"
-                  className="border-b-[1px] p-1 focus:outline-0"
+                  className="border-b-[1px] dark:border-b-white p-1 focus:outline-0 placeholder:text-[0.8rem] dark:placeholder:text-[#67ffdd]  dark:text-white"
                   placeholder="Your password"
                 />
                 <ErrorMessage

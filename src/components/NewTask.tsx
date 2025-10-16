@@ -8,7 +8,7 @@ import type { NewTask } from "../types/task.types";
 const NewTaskComp = () => {
   const dispatch = useAppDispatch();
   return (
-    <div className="w-full md:w-[50%] flex flex-col items-center p-3 outline-1">
+    <div className="w-full md:w-[50%] flex flex-col items-center p-3 outline-1 dark:text-white">
       <h3>Add a new Task</h3>
       <Formik
         initialValues={{ title: "", description: "" }}

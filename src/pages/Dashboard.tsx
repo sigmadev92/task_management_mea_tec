@@ -15,8 +15,7 @@ const Dashboard = () => {
   };
 
   return (
-    <main className="p-3 ">
-      <h2>Dashboard</h2>
+    <main className="dark:bg-black h-full">
       <section className="flex flex-col md:flex-row gap-3 justify-between p-3">
         <ViewTasks deleteTaskBtn={deleteTaskBtn} setTask={setTask} />
         {task ? (

@@ -2,11 +2,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
-  --color-primary: #123456;
-  --color-primary-dark: #0d0dff;
+html,
+body,
+#root {
+  height: 100vh;
 }
-
 .layout-2 {
   height: screen;
   background-color: primary;
@@ -31,7 +31,6 @@ p {
 
 main {
   height: 100vh;
-  padding: 0.3rem;
 }
 h1 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
